@@ -1,0 +1,38 @@
+.search-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.search-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  background-color: #000;
+}
+
+.search-info {
+  padding: 15px;
+  color: #eee;
+  flex-grow: 1;
+}
+
+.search-info h3 {
+  margin-top: 0;
+  color: #f0c14b;
+}
+
+.search-info p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+} 
