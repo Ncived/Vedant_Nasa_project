@@ -170,4 +170,11 @@ app.get('/api/epic', async (req, res) => {
   }
 });
 
-module.exports = app; 
+module.exports = app;
+
+// Start the server if this file is run directly
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+} 
