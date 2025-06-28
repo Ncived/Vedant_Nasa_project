@@ -11,5 +11,13 @@ export default defineConfig({
         changeOrigin: true,
       },
     }
+  },
+  preview: {
+    allowedHosts: [
+      'nasa-frontend-j3ar.onrender.com',
+      'nasa-explorer-3km1.onrender.com',
+      'localhost',
+      '127.0.0.1'
+    ]
   }
 })
