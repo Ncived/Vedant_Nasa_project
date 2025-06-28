@@ -65,6 +65,11 @@ const Navbar = () => {
                 Earth
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to="/analytics" className={({ isActive }) => "nav-links" + (isActive ? " active" : "")} onClick={closeMobileMenu}>
+                Analytics
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

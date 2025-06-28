@@ -5,6 +5,7 @@ import APODPage from './pages/APODPage';
 import MarsRoverPage from './pages/MarsRoverPage';
 import EPICPage from './pages/EPICPage';
 import SearchPage from './pages/SearchPage';
+import AnalyticsPage from './pages/AnalyticsPage';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/mars-rover" element={<MarsRoverPage />} />
         <Route path="/earth" element={<EPICPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/analytics" element={<AnalyticsPage />} />
       </Routes>
     </Router>
   );

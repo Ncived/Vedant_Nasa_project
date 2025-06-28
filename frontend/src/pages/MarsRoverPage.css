@@ -265,4 +265,42 @@
   .ai-buttons-container {
     flex-direction: column;
   }
+}
+
+.camera-stats-container {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.camera-stats-container h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.camera-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+/* Responsive design for camera stats */
+@media (max-width: 768px) {
+  .camera-stats-container {
+    padding: 15px;
+    margin: 20px 10px;
+  }
+  
+  .camera-stats-container h2 {
+    font-size: 1.2rem;
+  }
 } 
