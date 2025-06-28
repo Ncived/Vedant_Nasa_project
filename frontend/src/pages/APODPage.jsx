@@ -45,8 +45,6 @@ const APODPage = () => {
                 className="apod-video"
               />
             )}
-            <p className="apod-date">{apodData.date}</p>
-            <p className="apod-explanation">{apodData.explanation}</p>
           </div>
         )}
       </main>

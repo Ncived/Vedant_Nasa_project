@@ -37,10 +37,6 @@ const EPICPage = () => {
           {images.map(image => (
             <div key={image.identifier} className="epic-card">
               <img src={image.imageUrl} alt={`Earth from space on ${image.date}`} className="epic-img" />
-              <div className="epic-info">
-                <p><strong>Date:</strong> {new Date(image.date).toLocaleString()}</p>
-                <p>{image.caption}</p>
-              </div>
             </div>
           ))}
         </div>

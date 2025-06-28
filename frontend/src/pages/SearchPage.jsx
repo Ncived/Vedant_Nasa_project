@@ -48,10 +48,6 @@ const SearchPage = () => {
           {results.map(item => (
             <div key={item.nasa_id} className="search-card">
               <img src={item.image_href} alt={item.title} className="search-img" loading="lazy" />
-              <div className="search-info">
-                <h3>{item.title}</h3>
-                <p>{item.description?.substring(0, 150)}...</p>
-              </div>
             </div>
           ))}
         </div>

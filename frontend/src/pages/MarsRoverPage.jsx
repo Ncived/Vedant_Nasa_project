@@ -121,8 +121,6 @@ const MarsRoverPage = () => {
                 <div key={photo.id} className="photo-card">
                   <img src={photo.img_src} alt={`Mars Rover photo ${photo.id}`} className="photo-img" />
                   <div className="photo-info">
-                    <p><strong>Date:</strong> {photo.earth_date}</p>
-                    <p><strong>Camera:</strong> {photo.camera.full_name}</p>
                     <div className="ai-buttons-container">
                       <button className="ai-button" onClick={() => handleAiButtonClick('log', photo)}>
                         Generate Mission Log
