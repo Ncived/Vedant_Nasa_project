@@ -24,7 +24,6 @@ const MarsRoverPage = () => {
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching Mars Rover photos:', error);
         setError('No photos found for this date. Please try another.');
         setLoading(false);
       });
@@ -43,7 +42,6 @@ const MarsRoverPage = () => {
       const responseContent = type === 'log' ? response.data.missionLog : response.data.analysis;
       setModalData({ show: true, content: responseContent, title: type === 'log' ? 'Mission Log Entry' : 'Image Analysis Report' });
     } catch (error) {
-      console.error(`Error generating ${type}:`, error);
       setModalData({ show: true, content: `Error generating ${type}.`, title: 'Error' });
     }
   };

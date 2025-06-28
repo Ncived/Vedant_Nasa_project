@@ -17,7 +17,6 @@ const EPICPage = () => {
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching EPIC data:', error);
         if (images.length === 0) {
           setError('Failed to fetch EPIC data.');
         }

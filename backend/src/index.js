@@ -46,19 +46,14 @@ app.get('/api/apod', async (req, res) => {
       return res.json(apiCache.get(cacheKey));
     }
 
-    // Debug: Check if API key exists
     if (!process.env.NASA_API_KEY) {
-      console.error('NASA_API_KEY is not set');
       return res.status(500).json({ error: 'NASA API key not configured' });
     }
-
-    console.log('Fetching APOD with API key:', process.env.NASA_API_KEY.substring(0, 10) + '...');
     
     const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`, { timeout: 30000 });
     apiCache.set(cacheKey, response.data);
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching APOD data:', error.response?.data || error.message);
     res.status(500).json({ error: 'Failed to fetch APOD data.' });
   }
 });
@@ -77,14 +72,16 @@ app.get('/api/mars-rover', async (req, res) => {
       return res.json(apiCache.get(cacheKey));
     }
 
-    let apiUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${earthDate}&api_key=${process.env.NASA_API_KEY}`;
+    if (!process.env.NASA_API_KEY) {
+      return res.status(500).json({ error: 'NASA API key not configured' });
+    }
 
+    const apiUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${earthDate}&api_key=${process.env.NASA_API_KEY}`;
     const response = await axios.get(apiUrl, { timeout: 30000 });
     const photos = response.data.photos.slice(0, 50);
     apiCache.set(cacheKey, photos);
     res.json(photos);
   } catch (error) {
-    console.error('Error fetching Mars Rover photos:', error);
     res.status(500).json({ error: 'Failed to fetch Mars Rover photos.' });
   }
 });
@@ -101,7 +98,7 @@ app.post('/api/ai/mission-log', (req, res) => {
     "The atmospheric composition appears stable, though trace elements warrant further investigation.",
     "Evidence of past water activity is abundant in this region, confirming our primary hypothesis.",
     "The rover's instruments are performing nominally, collecting invaluable data about the Martian environment.",
-    "This panoramic view from the {camera} offers a breathtaking glimpse into the desolate beauty of Mars."
+    "This panoramic view from the camera offers a breathtaking glimpse into the desolate beauty of Mars."
   ];
 
   const logEntry = `
@@ -127,7 +124,7 @@ app.post('/api/ai/analyze-image', (req, res) => {
     "The image reveals fine-grained soil, likely the result of aeolian processes over millions of years.",
     "The atmospheric opacity is low, allowing for a clear view of the distant rim of Gale Crater.",
     "Analysis of the layering in the rock outcrop points to a history of sedimentary deposition, possibly in a lakebed environment.",
-    "The {camera.full_name} has detected traces of hematite, an iron oxide that often forms in the presence of water."
+    "The camera has detected traces of hematite, an iron oxide that often forms in the presence of water."
   ];
 
   const analysisText = `
@@ -165,7 +162,6 @@ app.get('/api/search', async (req, res) => {
     apiCache.set(cacheKey, items);
     res.json(items);
   } catch (error) {
-    console.error('Error fetching from NASA Image API:', error);
     res.status(500).json({ error: 'Failed to perform search.' });
   }
 });
@@ -174,17 +170,12 @@ app.get('/api/epic', async (req, res) => {
   const cacheKey = 'epic-latest';
   try {
     if (apiCache.has(cacheKey)) {
-      console.log('Serving EPIC from cache');
       return res.json(apiCache.get(cacheKey));
     }
 
-    // Debug: Check if API key exists
     if (!process.env.NASA_API_KEY) {
-      console.error('NASA_API_KEY is not set for EPIC');
       return res.status(500).json({ error: 'NASA API key not configured' });
     }
-
-    console.log('Fetching EPIC with API key:', process.env.NASA_API_KEY.substring(0, 10) + '...');
     
     const response = await axios.get(`https://api.nasa.gov/EPIC/api/natural/images?api_key=${process.env.NASA_API_KEY}`, { timeout: 30000 });
     
@@ -203,7 +194,6 @@ app.get('/api/epic', async (req, res) => {
     apiCache.set(cacheKey, imageInfo);
     res.json(imageInfo);
   } catch (error) {
-    console.error('Error fetching EPIC data:', error.response?.data || error.message);
     res.json([
       {
         identifier: 'fallback_epic_image',

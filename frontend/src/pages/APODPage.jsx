@@ -17,7 +17,6 @@ const APODPage = () => {
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching APOD data:', error);
         setError('Failed to fetch the Picture of the Day.');
         setLoading(false);
       });
