@@ -23,6 +23,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Health check route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'NASA API Backend is running!',
+    status: 'healthy',
+    endpoints: {
+      apod: '/api/apod',
+      marsRover: '/api/mars-rover',
+      epic: '/api/epic',
+      search: '/api/search',
+      missionLog: '/api/ai/mission-log',
+      analyzeImage: '/api/ai/analyze-image'
+    }
+  });
+});
+
 app.get('/api/apod', async (req, res) => {
   const cacheKey = 'apod';
   try {
