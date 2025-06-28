@@ -8,7 +8,19 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const apiCache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
 
-app.use(cors());
+// CORS configuration to allow frontend domain
+const corsOptions = {
+  origin: [
+    'https://nasa-frontend-j3ar.onrender.com',
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://nasa-explorer-swart.vercel.app'
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get('/api/apod', async (req, res) => {
