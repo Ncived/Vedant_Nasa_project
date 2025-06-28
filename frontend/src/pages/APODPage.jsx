@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import API_BASE_URL from '../config';
 import '../App.css';
 
 const APODPage = () => {
@@ -10,7 +11,7 @@ const APODPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/apod')
+    axios.get(`${API_BASE_URL}/api/apod`)
       .then(response => {
         setApodData(response.data);
         setLoading(false);

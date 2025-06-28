@@ -18,11 +18,19 @@ app.get('/api/apod', async (req, res) => {
       return res.json(apiCache.get(cacheKey));
     }
 
+    // Debug: Check if API key exists
+    if (!process.env.NASA_API_KEY) {
+      console.error('NASA_API_KEY is not set');
+      return res.status(500).json({ error: 'NASA API key not configured' });
+    }
+
+    console.log('Fetching APOD with API key:', process.env.NASA_API_KEY.substring(0, 10) + '...');
+    
     const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}`, { timeout: 30000 });
     apiCache.set(cacheKey, response.data);
     res.json(response.data);
   } catch (error) {
-    console.error('Error fetching APOD data:', error);
+    console.error('Error fetching APOD data:', error.response?.data || error.message);
     res.status(500).json({ error: 'Failed to fetch APOD data.' });
   }
 });
@@ -141,6 +149,15 @@ app.get('/api/epic', async (req, res) => {
       console.log('Serving EPIC from cache');
       return res.json(apiCache.get(cacheKey));
     }
+
+    // Debug: Check if API key exists
+    if (!process.env.NASA_API_KEY) {
+      console.error('NASA_API_KEY is not set for EPIC');
+      return res.status(500).json({ error: 'NASA API key not configured' });
+    }
+
+    console.log('Fetching EPIC with API key:', process.env.NASA_API_KEY.substring(0, 10) + '...');
+    
     const response = await axios.get(`https://api.nasa.gov/EPIC/api/natural/images?api_key=${process.env.NASA_API_KEY}`, { timeout: 30000 });
     
     const imageInfo = response.data.slice(0, 12).map(img => {
@@ -158,7 +175,7 @@ app.get('/api/epic', async (req, res) => {
     apiCache.set(cacheKey, imageInfo);
     res.json(imageInfo);
   } catch (error) {
-    console.error('Error fetching EPIC data, serving fallback:', error.code);
+    console.error('Error fetching EPIC data:', error.response?.data || error.message);
     res.json([
       {
         identifier: 'fallback_epic_image',

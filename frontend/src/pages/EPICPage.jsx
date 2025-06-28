@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import API_BASE_URL from '../config';
 import './EPICPage.css';
 
 const EPICPage = () => {
@@ -10,7 +11,7 @@ const EPICPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/epic')
+    axios.get(`${API_BASE_URL}/api/epic`)
       .then(response => {
         setImages(response.data);
         setLoading(false);

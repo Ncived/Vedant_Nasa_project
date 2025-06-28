@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './MarsRoverPage.css';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import API_BASE_URL from '../config';
 
 const MarsRoverPage = () => {
   const [photos, setPhotos] = useState([]);
@@ -17,7 +18,7 @@ const MarsRoverPage = () => {
     setLoading(true);
     const formattedDate = earthDate.toISOString().split('T')[0];
 
-    axios.get(`/api/mars-rover?earth_date=${formattedDate}`)
+    axios.get(`${API_BASE_URL}/api/mars-rover?earth_date=${formattedDate}`)
       .then(response => {
         setPhotos(response.data);
         setLoading(false);
@@ -34,7 +35,7 @@ const MarsRoverPage = () => {
     setModalData({ show: true, content, title: type === 'log' ? 'Mission Log Entry' : 'Image Analysis Report' });
     try {
       const endpoint = type === 'log' ? '/api/ai/mission-log' : '/api/ai/analyze-image';
-      const response = await axios.post(endpoint, {
+      const response = await axios.post(`${API_BASE_URL}${endpoint}`, {
         camera: photo.camera,
         earth_date: photo.earth_date,
         sol: photo.sol,

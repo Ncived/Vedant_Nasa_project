@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import API_BASE_URL from '../config';
 import './SearchPage.css';
 
 const SearchPage = () => {
@@ -20,7 +21,7 @@ const SearchPage = () => {
     setLoading(true);
     setResults([]);
     setError(null);
-    axios.get(`/api/search?q=${query}`)
+    axios.get(`${API_BASE_URL}/api/search?q=${query}`)
       .then(response => {
         setResults(response.data);
         setLoading(false);
